@@ -27,10 +27,9 @@ static int i = 1;
     self.myView.frame = CGRectMake(100, 100, 100, 100);
     self.myView.backgroundColor = [UIColor grayColor];
     self.myView.layer.position = CGPointMake(100, 100);
-    //    self.myView.layer.bounds = CGRectMake(0, 0, 100, 100);
+        self.myView.layer.bounds = CGRectMake(0, 0, 100, 100);
     self.myView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.myView];
-    
     
     self.imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.imageView];
@@ -42,8 +41,9 @@ static int i = 1;
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
+//    [self layerDemo];
     // 平移
-//    [self horMoveAnimate];
+    [self horMoveAnimate];
     
     // 缩放
 //    [self scaleAnimate];
@@ -55,7 +55,7 @@ static int i = 1;
 //    [self transitonAnimationn];
 //    [self transitionAnimations];
     // 动画组
-    [self animationGroup];
+//    [self animationGroup];
 }
 
 - (void)layerDemo {
@@ -73,6 +73,8 @@ static int i = 1;
     // 指定 lay上指定的 anchorPoint的店在 view 的那个位置上
     myLayer.position = CGPointMake(300, 300);
     // 添加视图
+    myLayer.beginTime = CACurrentMediaTime() + 10.0;
+    myLayer.duration = 2.0;
     [button.layer addSublayer:myLayer];
     
     [self.view addSubview:button];
@@ -103,8 +105,13 @@ static int i = 1;
     
     //方法2
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
-    anim.duration = 1;
-    
+    anim.beginTime = CACurrentMediaTime()  + 1.0;
+    anim.duration = 3.0;
+    // timeOffet  先从2s以后播放后8秒的动画，之后会回到起点，播放2.0s的动画
+//    anim.timeOffset = 2.0;
+//    anim.autoreverses = YES;
+    // 设置0与1都只执行1次， 动画执行的次数
+//    anim.repeatCount = 2;
     CATransform3D form = CATransform3DMakeTranslation(350, 350, 0);
     anim.toValue = [NSValue valueWithCATransform3D:form];
     anim.removedOnCompletion = NO;
