@@ -23,6 +23,7 @@ static int i = 1;
     
     [super viewDidLoad];
     
+    
     self.myView = [[UIView alloc] init];
     self.myView.frame = CGRectMake(100, 100, 100, 100);
     self.myView.backgroundColor = [UIColor grayColor];
@@ -33,10 +34,11 @@ static int i = 1;
     
     self.imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.imageView];
-    //    [self layerDemo];
+        [self layerDemo];
     
-    // Do any additional setup after loading the view, typically from a nib.
+    
 }
+
 
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -104,18 +106,22 @@ static int i = 1;
     //    [self.myView.layer addAnimation:anim forKey:@"translate"];
     
     //方法2
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
-    anim.beginTime = CACurrentMediaTime()  + 1.0;
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position.x"];
+//    anim.beginTime = CACurrentMediaTime()  + 1.0;
     anim.duration = 3.0;
+    anim.timingFunction = [CAMediaTimingFunction functionWithControlPoints:46 :1 :97 :96];//;
+    //[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]
     // timeOffet  先从2s以后播放后8秒的动画，之后会回到起点，播放2.0s的动画
 //    anim.timeOffset = 2.0;
 //    anim.autoreverses = YES;
     // 设置0与1都只执行1次， 动画执行的次数
 //    anim.repeatCount = 2;
-    CATransform3D form = CATransform3DMakeTranslation(350, 350, 0);
-    anim.toValue = [NSValue valueWithCATransform3D:form];
-    anim.removedOnCompletion = NO;
-    anim.fillMode = kCAFillModeForwards;
+    CATransform3D form = CATransform3DMakeTranslation(100, 150, 0);
+    anim.fromValue = @100;
+    
+    anim.toValue = @300;
+//    anim.removedOnCompletion = NO;
+//    anim.fillMode = kCAFillModeForwards;
     [self.myView.layer addAnimation:anim forKey:nil];
 }
 
@@ -152,7 +158,6 @@ static int i = 1;
     
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
     anim.duration = 1.5;
-    
     // 绕着(0, 0, 1)这个向量轴顺时针旋转45°
     anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation( M_PI, 0, 0, 1)];
     [_myView.layer addAnimation:anim forKey:nil];
@@ -232,6 +237,7 @@ static int i = 1;
     }
 }
 
+// 组动画
 - (void)animationGroup {
     
     // 添加基础动画
@@ -256,6 +262,50 @@ static int i = 1;
     anim.removedOnCompletion = NO;
     anim.fillMode = kCAFillModeForwards;
     [_myView.layer addAnimation:anim forKey:nil];
+
+}
+
+// 组动画实例
+- (void)animationGroupExample {
+    
+    CABasicAnimation *zPosition = [CABasicAnimation animation];
+    zPosition.keyPath = @"zPosition";
+    zPosition.fromValue = @-1;
+    zPosition.toValue = @1;
+    zPosition.duration = 1.2;
+    
+    CAKeyframeAnimation *rotation = [CAKeyframeAnimation animation];
+    rotation.keyPath = @"transform.rotation";
+    // 旋转的角度
+    rotation.values = @[ @0, @0.14, @0 ];
+    rotation.duration = 1.2;
+    rotation.timingFunctions = @[
+                                 [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                 [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]
+                                 ];
+    
+    
+    
+    CAKeyframeAnimation *position = [CAKeyframeAnimation animation];
+    position.keyPath = @"position";
+    position.values = @[
+                        [NSValue valueWithCGPoint:CGPointZero],
+                        [NSValue valueWithCGPoint:CGPointMake(110, -20)],
+                        [NSValue valueWithCGPoint:CGPointZero]
+                        ];
+    position.timingFunctions = @[
+                                 [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                 [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]
+                                 ];
+    position.additive = YES;
+    position.duration = 1.2;
+    
+    CAAnimationGroup *group = [[CAAnimationGroup alloc] init];
+    group.animations = @[ zPosition, rotation, position ];
+    group.duration = 1.2;
+    group.beginTime = 0.5;
+    
+
 
 }
 
