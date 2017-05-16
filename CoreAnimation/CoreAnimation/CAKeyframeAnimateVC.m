@@ -7,6 +7,7 @@
 //
 
 #import "CAKeyframeAnimateVC.h"
+#import "CAKeyFrameExampleVC.h"
 
 @interface CAKeyframeAnimateVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -26,7 +27,11 @@
 
 
 - (void)setUpTableView {
-    self.dataArray = @[@"平移",@"旋转"];
+    self.dataArray = @[@"valuesAndKeyTimes",
+                       @"timeFunctions",
+                       @"rotationMode",
+                       @"caculationMode"
+                       ];
     
     self.tabelView.frame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width,  [UIScreen mainScreen].bounds.size.height);
     [self.view addSubview:self.tabelView];
@@ -58,6 +63,15 @@
     return cell;
 }
 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    CAKeyFrameExampleVC *exampleVC = [[CAKeyFrameExampleVC alloc] init];
+    exampleVC.index = indexPath.row;
+    exampleVC.title = self.dataArray[indexPath.row];
+    [self.navigationController pushViewController:exampleVC animated:YES];
+
+}
 
 
 - (NSArray *)dataArray {

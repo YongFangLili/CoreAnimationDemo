@@ -29,7 +29,7 @@
 
 - (void)setUpTableView {
     
-    self.dataArray = @[@"平移",@"缩放",@"旋转"];
+    self.dataArray = @[@"平移",@"缩放",@"旋转",@"additive"];
     self.tabelView.frame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width,  [UIScreen mainScreen].bounds.size.height);
     [self.view addSubview:self.tabelView];
 }

@@ -7,6 +7,7 @@
 //
 
 #import "CAAnimateGroupVC.h"
+#import "CAgroupExampleVC.h"
 
 @interface CAAnimateGroupVC ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -26,7 +27,7 @@
 
 
 - (void)setUpTableView {
-    self.dataArray = @[@"平移",@"旋转"];
+    self.dataArray = @[@"groupAnimate1"];
     
     self.tabelView.frame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width,  [UIScreen mainScreen].bounds.size.height);
     [self.view addSubview:self.tabelView];
@@ -58,6 +59,15 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CAgroupExampleVC *example = [[CAgroupExampleVC alloc] init];
+    example.title = self.dataArray[indexPath.row];
+    example.index = indexPath.row;
+    [self.navigationController pushViewController:example animated:YES];
+
+}
+
 
 
 - (NSArray *)dataArray {
@@ -75,8 +85,6 @@
         _tabelView.delegate = self;
         _tabelView.separatorColor = [UIColor blackColor];
         _tabelView.dataSource = self;
-        
-        
     }
     return _tabelView;
 }

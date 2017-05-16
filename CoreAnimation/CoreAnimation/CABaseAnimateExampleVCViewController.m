@@ -19,6 +19,7 @@
 @implementation CABaseAnimateExampleVCViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.myView = [[UIView alloc] init];
@@ -53,6 +54,8 @@
         case 2:
             [self rotateAnimate];
             break;
+        case 3:
+            [self additiveAnimate];
             
         default:
             break;
@@ -144,14 +147,22 @@
 }
 
 
-/*
-#pragma mark - Navigation
+// additive的使用
+- (void)additiveAnimate {
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    CABasicAnimation *animate = [CABasicAnimation animation];
+    animate.duration = 3;
+    animate.keyPath = @"position.y";
+    animate.fromValue = @200;
+    animate.toValue = @300;
+    // NO,坐标Y从200 到300   YES 坐标y从当前的y+200 到y+300
+    animate.additive = NO;
+    animate.repeatCount = 2;
+    // 默认为NO 循环动画时，仍然从其实位置进行   YES 从下一次循环开始，每次结束后，讲从当前的y+200 到y+300开始平移
+    animate.cumulative = NO;
+    [_myView.layer addAnimation:animate forKey:nil];
 }
-*/
+
+
 
 @end

@@ -10,4 +10,6 @@
 
 @interface CAgroupExampleVC : UIViewController
 
+@property (nonatomic, assign)NSInteger index;
+
 @end
