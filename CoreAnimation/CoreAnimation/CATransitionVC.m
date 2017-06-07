@@ -26,7 +26,8 @@
 
 
 - (void)setUpTableView {
-    self.dataArray = @[@"平移",@"旋转"];
+    
+    self.dataArray = @[@"转场动画1（自带的场景演示）"];
     
     self.tabelView.frame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width,  [UIScreen mainScreen].bounds.size.height);
     [self.view addSubview:self.tabelView];
