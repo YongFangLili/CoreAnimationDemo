@@ -30,7 +30,8 @@
     self.dataArray = @[@"valuesAndKeyTimes",
                        @"timeFunctions",
                        @"rotationMode",
-                       @"caculationMode"
+                       @"caculationMode",
+                       @"flyAnimate"
                        ];
     
     self.tabelView.frame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width,  [UIScreen mainScreen].bounds.size.height);
