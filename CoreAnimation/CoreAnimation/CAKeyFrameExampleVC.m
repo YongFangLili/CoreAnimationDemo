@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.myView = [[UIView alloc] init];
     self.myView.frame = CGRectMake(100, 200, 100, 100);
@@ -62,11 +63,30 @@
         case 3:
             [self caculationModeAnimate];
             break;
+        case 4:
+            [self flyAnimate];
+            break;
             
         default:
             break;
     }
     
+}
+
+- (void)flyAnimate {
+    
+    self.imageView.frame = CGRectMake(50, 100, 50, 50);
+    UIBezierPath *pathLine = [UIBezierPath bezierPath];
+    [pathLine moveToPoint:CGPointMake(50, 100)];
+    [pathLine addLineToPoint:CGPointMake(300, 100)];
+    [pathLine addArcWithCenter:CGPointMake(200, 200) radius:150 startAngle:0 endAngle:M_PI_2 clockwise:true];
+    CAKeyframeAnimation *keyAnimate = [CAKeyframeAnimation animation];
+    keyAnimate.duration = 2.0;
+    keyAnimate.path = pathLine.CGPath;
+    keyAnimate.keyPath = @"position";
+    keyAnimate.fillMode = kCAFillModeForwards;
+    keyAnimate.removedOnCompletion = NO;
+    [self.imageView.layer addAnimation:keyAnimate forKey:nil];
 }
 
 - (void)valuesAndKeyTimes {

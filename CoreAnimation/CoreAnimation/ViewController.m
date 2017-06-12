@@ -23,7 +23,7 @@ static int i = 1;
     
     [super viewDidLoad];
     
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.myView = [[UIView alloc] init];
     self.myView.frame = CGRectMake(100, 100, 100, 100);
     self.myView.backgroundColor = [UIColor grayColor];

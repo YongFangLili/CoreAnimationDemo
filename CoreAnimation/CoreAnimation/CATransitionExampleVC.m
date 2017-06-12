@@ -56,7 +56,7 @@ static int i = 1;
  oglFlip : 上下左右翻转效果
  suckEffect : 收缩效果，如一块布被抽走
  rippleEffect: 水滴效果
- pageCurl : 向上翻页效果
+ pageCurl : 向上翻页效果X
  **/
 - (void)transitionAnimations {
     
