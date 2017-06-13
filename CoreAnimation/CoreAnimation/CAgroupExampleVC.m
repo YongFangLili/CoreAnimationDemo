@@ -73,15 +73,16 @@
     // 动画2：5秒的逐渐透明
     CABasicAnimation *anim2 = [CABasicAnimation animation];
     anim2.keyPath = @"opacity";
+    
     anim2.duration = 5.0f;
-    anim2.toValue = @0;
+    anim2.toValue = @0.0;
     
     // 动画组：10秒的动画组，虽然组内动画在3秒和5秒的时候已经结束了
     // 但组是持续10秒的，10秒后才结束
     CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-    animGroup.duration = 10.0f;
-    animGroup.animations = @[anim1, anim2];
-    [self.imageView.layer addAnimation:animGroup forKey:@"animGroup"];
+    animGroup.duration = 8.0f;
+    animGroup.animations = @[anim1];
+    [self.myView.layer addAnimation:animGroup forKey:nil];
 
 }
 
