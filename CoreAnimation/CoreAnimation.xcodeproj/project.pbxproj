@@ -27,6 +27,7 @@
 		3D3704481EC5BDFE00124C33 /* CATransitionExampleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3704471EC5BDFE00124C33 /* CATransitionExampleVC.m */; };
 		3D37044B1EC5BE1D00124C33 /* CAKeyFrameExampleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D37044A1EC5BE1D00124C33 /* CAKeyFrameExampleVC.m */; };
 		3D37044E1EC5BE3900124C33 /* CAgroupExampleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D37044D1EC5BE3900124C33 /* CAgroupExampleVC.m */; };
+		3DAFC9B91EF3D42D00DCC69D /* UIView+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DAFC9B81EF3D42D00DCC69D /* UIView+Utility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,8 @@
 		3D37044A1EC5BE1D00124C33 /* CAKeyFrameExampleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAKeyFrameExampleVC.m; sourceTree = "<group>"; };
 		3D37044C1EC5BE3900124C33 /* CAgroupExampleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAgroupExampleVC.h; sourceTree = "<group>"; };
 		3D37044D1EC5BE3900124C33 /* CAgroupExampleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAgroupExampleVC.m; sourceTree = "<group>"; };
+		3DAFC9B71EF3D42D00DCC69D /* UIView+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utility.h"; sourceTree = "<group>"; };
+		3DAFC9B81EF3D42D00DCC69D /* UIView+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utility.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +146,8 @@
 				3D37042D1EC5A76B00124C33 /* CAgroup */,
 				3D3704301EC5A7D300124C33 /* CATransition */,
 				3D3704401EC5B04300124C33 /* MainTabBarVC.h */,
+				3DAFC9B71EF3D42D00DCC69D /* UIView+Utility.h */,
+				3DAFC9B81EF3D42D00DCC69D /* UIView+Utility.m */,
 				3D3704411EC5B04300124C33 /* MainTabBarVC.m */,
 				1C1C2EE81EB0F21400072F7A /* AppDelegate.h */,
 				1C1C2EE91EB0F21400072F7A /* AppDelegate.m */,
@@ -368,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D37044B1EC5BE1D00124C33 /* CAKeyFrameExampleVC.m in Sources */,
+				3DAFC9B91EF3D42D00DCC69D /* UIView+Utility.m in Sources */,
 				3D3704481EC5BDFE00124C33 /* CATransitionExampleVC.m in Sources */,
 				3D37041D1EC5A69E00124C33 /* CAAnimateGroupVC.m in Sources */,
 				3D37044E1EC5BE3900124C33 /* CAgroupExampleVC.m in Sources */,

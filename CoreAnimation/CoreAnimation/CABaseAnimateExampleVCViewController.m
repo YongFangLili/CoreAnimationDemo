@@ -7,12 +7,15 @@
 //
 
 #import "CABaseAnimateExampleVCViewController.h"
+#import "UIView+Utility.h"
 
 @interface CABaseAnimateExampleVCViewController ()
 
 @property (nonatomic, strong) UIView *myView;
 
 @property (nonatomic, strong) UIImageView *imageView;
+
+@property (nonatomic, strong) NSMutableArray *animateArray;
 
 @end
 
@@ -55,12 +58,106 @@
             [self rotateAnimate];
             break;
         case 3:
-            [self additiveAnimate];
+//            [self additiveAnimate];
+//            [self UIViewAnimateExample];
+            [self UIViewBlockAnimateExample];
             
         default:
             break;
     }
 
+}
+
+- (void)UIViewAnimateExample {
+    
+    // 直接设置并进行提交动画
+    [UIView beginAnimations:@"animationID" context:NULL];
+    [UIView setAnimationDelegate:self];
+//    [UIView setAnimationWillStartSelector:@selector(startAnimation)];
+    [UIView setAnimationDuration:3];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationRepeatAutoreverses:YES];
+    [UIView setAnimationRepeatCount:3];
+    // 此处默认为NO，设置为YES 感觉没有多大的区别
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    // 设置为NO，无动画效果
+    [UIView setAnimationsEnabled:NO];
+    //切记：下面的三句和上边的两句位置千万不能搞错啦
+    
+    CGRect frame = self.myView.frame;
+    frame = CGRectMake(200, 300, 100, 100);
+    self.myView.frame = frame;
+
+    [UIView commitAnimations];
+}
+
+- (void)UIViewBlockAnimateExample {
+    
+    // 苹果推荐使用block动画
+//    UIViewAnimationOptionCurveEaseInOut   //先加速后减速，默认
+//    UIViewAnimationOptionCurveEaseIn      //由慢到快
+//    UIViewAnimationOptionCurveEaseOut     //由快到慢
+//    UIViewAnimationOptionCurveLinear      //匀速
+    // 1、常用的基本动画
+//    [UIView animateWithDuration:(0.3) animations:^{
+//        
+//        CGRect frame = self.myView.frame;
+//        frame = CGRectMake(200, 300, 100, 100);
+//        self.myView.frame = frame;
+//    }];
+//    
+//    // 2.带有动画的完成效果
+//    [UIView animateWithDuration:0.3 animations:^{
+//        
+//        self.myView.alpha = 0.2;
+//    } completion:^(BOOL finished) {
+//        // 处理完成后的结果
+//        
+//       self.myView.alpha = 1.0;
+//    }];
+    
+    UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(100, 400, 40, 40)];
+    UIView *view2 = [[UIView alloc] initWithFrame:CGRectMake(140 + 5, 400, 40, 40)];
+    UIView *view3 = [[UIView alloc] initWithFrame:CGRectMake(100 + 80 + 10, 400, 40, 40)];
+    UIView *view4 = [[UIView alloc] initWithFrame:CGRectMake(100 + 120 + 15, 400, 40, 40)];
+    view1.backgroundColor = [UIColor orangeColor];
+    view2.backgroundColor = [UIColor orangeColor];
+    view3.backgroundColor = [UIColor orangeColor];
+    view4.backgroundColor = [UIColor orangeColor];
+    [self.view addSubview:view1];
+    [self.view addSubview:view2];
+    [self.view addSubview:view3];
+    [self.view addSubview:view4];
+    
+    [self animatedView:view1 withIndex:0];
+    [self animatedView:view2 withIndex:1];
+    [self animatedView:view3 withIndex:2];
+    [self animatedView:view4 withIndex:3];
+    
+    
+
+
+}
+
+//y轴上移动视图上升250
+- (void)animatedView: (UIView *)view withIndex:(NSInteger)index
+{
+//    [UIView animateWithDuration: 0.5 delay:(index * 0.5) options: UIViewAnimationOptionCurveEaseInOut animations: ^{
+//        CGPoint center = view.center;
+//        center.y -= 100;
+//        view.center = center;
+//    } completion: nil];
+    // dampingRatio：速度衰减比例。取值范围0 ~ 1，值越低震动越强
+//    velocity：初始化速度，值越高则物品的速度越快
+    [UIView animateWithDuration:0.5 delay:(index * 0.05) usingSpringWithDamping:0.3 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        CGPoint center = view.center;
+        center.y -= 100;
+        view.center = center;
+        
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 
@@ -146,7 +243,6 @@
     
 }
 
-
 // additive的使用
 - (void)additiveAnimate {
 
@@ -163,6 +259,15 @@
     [_myView.layer addAnimation:animate forKey:nil];
 }
 
+
+- (NSMutableArray *)animateArray {
+    
+    if (!_animateArray) {
+        _animateArray = [NSMutableArray array];
+    }
+
+    return _animateArray;
+}
 
 
 @end

@@ -18,6 +18,7 @@
 @implementation CAgroupExampleVC
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.myView = [[UIView alloc] init];
