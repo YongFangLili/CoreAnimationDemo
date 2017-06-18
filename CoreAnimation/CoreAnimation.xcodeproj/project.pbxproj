@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C0164021EF6BCB5000A9BB5 /* UIViewAnimateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0164011EF6BCB5000A9BB5 /* UIViewAnimateVC.m */; };
+		1C0164051EF6BD17000A9BB5 /* UIViewAnimateNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0164041EF6BD17000A9BB5 /* UIViewAnimateNav.m */; };
+		1C0164081EF6BED1000A9BB5 /* UIViewAnimateExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0164071EF6BED1000A9BB5 /* UIViewAnimateExample.m */; };
 		1C1C2EE71EB0F21400072F7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C2EE61EB0F21400072F7A /* main.m */; };
 		1C1C2EEA1EB0F21400072F7A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C2EE91EB0F21400072F7A /* AppDelegate.m */; };
 		1C1C2EED1EB0F21400072F7A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C2EEC1EB0F21400072F7A /* ViewController.m */; };
@@ -48,6 +51,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C0164001EF6BCB5000A9BB5 /* UIViewAnimateVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAnimateVC.h; sourceTree = "<group>"; };
+		1C0164011EF6BCB5000A9BB5 /* UIViewAnimateVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAnimateVC.m; sourceTree = "<group>"; };
+		1C0164031EF6BD17000A9BB5 /* UIViewAnimateNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAnimateNav.h; sourceTree = "<group>"; };
+		1C0164041EF6BD17000A9BB5 /* UIViewAnimateNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAnimateNav.m; sourceTree = "<group>"; };
+		1C0164061EF6BED1000A9BB5 /* UIViewAnimateExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAnimateExample.h; sourceTree = "<group>"; };
+		1C0164071EF6BED1000A9BB5 /* UIViewAnimateExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAnimateExample.m; sourceTree = "<group>"; };
 		1C1C2EE21EB0F21400072F7A /* CoreAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C1C2EE61EB0F21400072F7A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1C1C2EE81EB0F21400072F7A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -118,6 +127,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C0163FC1EF6BC6C000A9BB5 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				1C0164001EF6BCB5000A9BB5 /* UIViewAnimateVC.h */,
+				1C0164011EF6BCB5000A9BB5 /* UIViewAnimateVC.m */,
+				1C0164031EF6BD17000A9BB5 /* UIViewAnimateNav.h */,
+				1C0164041EF6BD17000A9BB5 /* UIViewAnimateNav.m */,
+				1C0164061EF6BED1000A9BB5 /* UIViewAnimateExample.h */,
+				1C0164071EF6BED1000A9BB5 /* UIViewAnimateExample.m */,
+			);
+			name = UIView;
+			sourceTree = "<group>";
+		};
 		1C1C2ED91EB0F21400072F7A = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +163,7 @@
 		1C1C2EE41EB0F21400072F7A /* CoreAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				1C0163FC1EF6BC6C000A9BB5 /* UIView */,
 				3D37042E1EC5A78B00124C33 /* CABasic */,
 				3D37042F1EC5A79E00124C33 /* CAKeyframe */,
 				3D37042D1EC5A76B00124C33 /* CAgroup */,
@@ -373,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D37044B1EC5BE1D00124C33 /* CAKeyFrameExampleVC.m in Sources */,
+				1C0164051EF6BD17000A9BB5 /* UIViewAnimateNav.m in Sources */,
 				3DAFC9B91EF3D42D00DCC69D /* UIView+Utility.m in Sources */,
 				3D3704481EC5BDFE00124C33 /* CATransitionExampleVC.m in Sources */,
 				3D37041D1EC5A69E00124C33 /* CAAnimateGroupVC.m in Sources */,
@@ -384,9 +408,11 @@
 				1C1C2EEA1EB0F21400072F7A /* AppDelegate.m in Sources */,
 				3D3704291EC5A73500124C33 /* CABasicAnimateVC.m in Sources */,
 				1C1C2EE71EB0F21400072F7A /* main.m in Sources */,
+				1C0164081EF6BED1000A9BB5 /* UIViewAnimateExample.m in Sources */,
 				3D37043F1EC5A90800124C33 /* CATransitionNav.m in Sources */,
 				3D3704451EC5B87000124C33 /* CABaseAnimateExampleVCViewController.m in Sources */,
 				3D3704391EC5A8B100124C33 /* CABasicAnimateNav.m in Sources */,
+				1C0164021EF6BCB5000A9BB5 /* UIViewAnimateVC.m in Sources */,
 				3D3704261EC5A71D00124C33 /* CATransitionVC.m in Sources */,
 				3D3704421EC5B04300124C33 /* MainTabBarVC.m in Sources */,
 			);
@@ -527,10 +553,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
-=======
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
->>>>>>> ceec72d124060c5d0fa7393f85fc730681b2b9f4
 				DEVELOPMENT_TEAM = 9J4Y7YNRRQ;
 				INFOPLIST_FILE = CoreAnimation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -545,10 +567,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-<<<<<<< HEAD
-=======
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
->>>>>>> ceec72d124060c5d0fa7393f85fc730681b2b9f4
 				DEVELOPMENT_TEAM = 9J4Y7YNRRQ;
 				INFOPLIST_FILE = CoreAnimation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

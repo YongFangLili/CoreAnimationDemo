@@ -16,6 +16,8 @@
 #import "CABasicAnimateNav.h"
 #import "CATransitionVC.h"
 #import "CATransitionNav.h"
+#import "UIViewAnimateNav.h"
+#import "UIViewAnimateVC.h"
 
 
 @interface MainTabBarVC ()
@@ -31,6 +33,12 @@
 }
 
 - (void)setUpChildVc {
+    
+    UIViewAnimateVC  *viewVC = [[UIViewAnimateVC alloc] init];
+    UIViewAnimateNav *viewNAV = [[UIViewAnimateNav alloc] initWithRootViewController:viewVC];
+    viewVC.view.backgroundColor = [UIColor whiteColor];
+    viewVC.title = @"UIViewAnimate";
+    [self addChildViewController:viewNAV];
     
     CABasicAnimateVC *baseVC = [[CABasicAnimateVC alloc] init];
     baseVC.title = @"CABase";

@@ -12,10 +12,9 @@
 @interface CABaseAnimateExampleVCViewController ()
 
 @property (nonatomic, strong) UIView *myView;
-
 @property (nonatomic, strong) UIImageView *imageView;
-
-@property (nonatomic, strong) NSMutableArray *animateArray;
+@property (nonatomic, strong) UIView *view1;
+@property (nonatomic, strong) UIView *view2;
 
 @end
 
@@ -24,6 +23,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.myView = [[UIView alloc] init];
     self.myView.frame = CGRectMake(100, 200, 100, 100);
@@ -36,9 +36,27 @@
     
     self.imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.imageView];
+    
+    
+    self.myView = [[UIView alloc] initWithFrame:CGRectMake(20, 300, 100, 100)];
+    self.myView.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.myView];
+    
+    self.view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    _view1.backgroundColor = [UIColor yellowColor];
+    _view1.alpha = 1.0;
+    [self.myView addSubview:_view1];
+    
+    _view2 = [[UIView alloc] initWithFrame:CGRectMake(50, 50, 50, 50)];
+    _view2.backgroundColor = [UIColor blueColor];
+//    [self.myView addSubview:_view2];
     // Do any additional setup after loading the view.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -58,84 +76,10 @@
             [self rotateAnimate];
             break;
         case 3:
-//            [self additiveAnimate];
-//            [self UIViewAnimateExample];
-            [self UIViewBlockAnimateExample];
-            
+            [self additiveAnimate];
         default:
             break;
     }
-
-}
-
-- (void)UIViewAnimateExample {
-    
-    // 直接设置并进行提交动画
-    [UIView beginAnimations:@"animationID" context:NULL];
-    [UIView setAnimationDelegate:self];
-//    [UIView setAnimationWillStartSelector:@selector(startAnimation)];
-    [UIView setAnimationDuration:3];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    [UIView setAnimationRepeatAutoreverses:YES];
-    [UIView setAnimationRepeatCount:3];
-    // 此处默认为NO，设置为YES 感觉没有多大的区别
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    // 设置为NO，无动画效果
-    [UIView setAnimationsEnabled:NO];
-    //切记：下面的三句和上边的两句位置千万不能搞错啦
-    
-    CGRect frame = self.myView.frame;
-    frame = CGRectMake(200, 300, 100, 100);
-    self.myView.frame = frame;
-
-    [UIView commitAnimations];
-}
-
-- (void)UIViewBlockAnimateExample {
-    
-    // 苹果推荐使用block动画
-//    UIViewAnimationOptionCurveEaseInOut   //先加速后减速，默认
-//    UIViewAnimationOptionCurveEaseIn      //由慢到快
-//    UIViewAnimationOptionCurveEaseOut     //由快到慢
-//    UIViewAnimationOptionCurveLinear      //匀速
-    // 1、常用的基本动画
-//    [UIView animateWithDuration:(0.3) animations:^{
-//        
-//        CGRect frame = self.myView.frame;
-//        frame = CGRectMake(200, 300, 100, 100);
-//        self.myView.frame = frame;
-//    }];
-//    
-//    // 2.带有动画的完成效果
-//    [UIView animateWithDuration:0.3 animations:^{
-//        
-//        self.myView.alpha = 0.2;
-//    } completion:^(BOOL finished) {
-//        // 处理完成后的结果
-//        
-//       self.myView.alpha = 1.0;
-//    }];
-    
-    UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(100, 400, 40, 40)];
-    UIView *view2 = [[UIView alloc] initWithFrame:CGRectMake(140 + 5, 400, 40, 40)];
-    UIView *view3 = [[UIView alloc] initWithFrame:CGRectMake(100 + 80 + 10, 400, 40, 40)];
-    UIView *view4 = [[UIView alloc] initWithFrame:CGRectMake(100 + 120 + 15, 400, 40, 40)];
-    view1.backgroundColor = [UIColor orangeColor];
-    view2.backgroundColor = [UIColor orangeColor];
-    view3.backgroundColor = [UIColor orangeColor];
-    view4.backgroundColor = [UIColor orangeColor];
-    [self.view addSubview:view1];
-    [self.view addSubview:view2];
-    [self.view addSubview:view3];
-    [self.view addSubview:view4];
-    
-    [self animatedView:view1 withIndex:0];
-    [self animatedView:view2 withIndex:1];
-    [self animatedView:view3 withIndex:2];
-    [self animatedView:view4 withIndex:3];
-    
-    
-
 
 }
 
@@ -257,16 +201,6 @@
     // 默认为NO 循环动画时，仍然从其实位置进行   YES 从下一次循环开始，每次结束后，讲从当前的y+200 到y+300开始平移
     animate.cumulative = NO;
     [_myView.layer addAnimation:animate forKey:nil];
-}
-
-
-- (NSMutableArray *)animateArray {
-    
-    if (!_animateArray) {
-        _animateArray = [NSMutableArray array];
-    }
-
-    return _animateArray;
 }
 
 
