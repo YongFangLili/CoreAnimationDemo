@@ -104,23 +104,41 @@
     
     // 直接设置并进行提交动画
     [UIView beginAnimations:@"animationID" context:NULL];
+    // 设置代理
     [UIView setAnimationDelegate:self];
-    //    [UIView setAnimationWillStartSelector:@selector(startAnimation)];
+    // 设置时长
     [UIView setAnimationDuration:3];
+    // 设置动画的变化规律
+    // 设置为NO，无动画效果
+    //    UIViewAnimationCurveEaseInOut,    开始和结尾慢，中间块（默认）
+    //    UIViewAnimationCurveEaseIn,       开始慢，结尾块
+    //    UIViewAnimationCurveEaseOut,      开始块，结尾慢
+    //    UIViewAnimationCurveLinear,       匀速
+
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    // 是否反向
     [UIView setAnimationRepeatAutoreverses:YES];
+    
+    [UIView setAnimationDelegate:self];
+    // 开始动画
+    [UIView setAnimationWillStartSelector:@selector(didStartAnimate)];
+    // 动画重复次数
     [UIView setAnimationRepeatCount:3];
     // 此处默认为NO，设置为YES 感觉没有多大的区别
     [UIView setAnimationBeginsFromCurrentState:YES];
-    // 设置为NO，无动画效果
+    // 动画效果是否可用
     [UIView setAnimationsEnabled:NO];
     //切记：下面的三句和上边的两句位置千万不能搞错啦
-    
     CGRect frame = self.myView.frame;
     frame = CGRectMake(200, 300, 100, 100);
     self.myView.frame = frame;
     
     [UIView commitAnimations];
+}
+
+- (void)didStartAnimate {
+
+
 }
 
 - (void)UIViewBlockAnimateExample {
