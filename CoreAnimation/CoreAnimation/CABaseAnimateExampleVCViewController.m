@@ -25,21 +25,22 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.myView = [[UIView alloc] init];
-    self.myView.frame = CGRectMake(100, 200, 100, 100);
-    self.myView.backgroundColor = [UIColor grayColor];
-    
-    self.myView.layer.bounds = CGRectMake(0, 0, 100, 100);
-    self.myView.layer.position = CGPointMake(100, 200);
-    self.myView.backgroundColor = [UIColor redColor];
-    [self.view addSubview:self.myView];
+//    self.myView = [[UIView alloc] init];
+//    self.myView.frame = CGRectMake(100, 200, 100, 100);
+//    self.myView.backgroundColor = [UIColor grayColor];
+//    
+//    self.myView.layer.bounds = CGRectMake(0, 0, 100, 100);
+//    self.myView.layer.position = CGPointMake(100, 200);
+//    self.myView.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:self.myView];
     
     self.imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.imageView];
     
-    
     self.myView = [[UIView alloc] initWithFrame:CGRectMake(20, 300, 100, 100)];
     self.myView.backgroundColor = [UIColor greenColor];
+    self.myView.layer.backgroundColor = [UIColor redColor].CGColor;
+    self.myView.layer.anchorPoint = CGPointMake(0, 0.5);
     [self.view addSubview:self.myView];
     
     self.view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
@@ -83,28 +84,6 @@
 
 }
 
-//y轴上移动视图上升250
-- (void)animatedView: (UIView *)view withIndex:(NSInteger)index
-{
-//    [UIView animateWithDuration: 0.5 delay:(index * 0.5) options: UIViewAnimationOptionCurveEaseInOut animations: ^{
-//        CGPoint center = view.center;
-//        center.y -= 100;
-//        view.center = center;
-//    } completion: nil];
-    // dampingRatio：速度衰减比例。取值范围0 ~ 1，值越低震动越强
-//    velocity：初始化速度，值越高则物品的速度越快
-    [UIView animateWithDuration:0.5 delay:(index * 0.05) usingSpringWithDamping:0.3 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        CGPoint center = view.center;
-        center.y -= 100;
-        view.center = center;
-        
-    } completion:^(BOOL finished) {
-        
-    }];
-}
-
-
 // 平移动画
 - (void)horMoveAnimate {
     
@@ -128,21 +107,26 @@
     
     //方法2
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"position.x"];
-    //    anim.beginTime = CACurrentMediaTime()  + 1.0;
-    anim.duration = 3.0;
+    // 开始时间，可以延时1s才进行动画
+    anim.beginTime = CACurrentMediaTime()  + 1.0;
+    // 动画持续时间
+    anim.duration = 6;
+    // 控制动画的速度
     anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];//[CAMediaTimingFunction functionWithControlPoints:46 :1 :97 :96];//;
     //
-    // timeOffet  先从2s以后播放后8秒的动画，之后会回到起点，播放2.0s的动画
-    //    anim.timeOffset = 2.0;
-    //    anim.autoreverses = YES;
+    // timeOffet  先从2s以后播放后4秒的动画，之后会回到起点，播放2.0s的动画
+//    anim.timeOffset = 2.0;
     // 设置0与1都只执行1次， 动画执行的次数
-    //    anim.repeatCount = 2;
-    CATransform3D form = CATransform3DMakeTranslation(100, 150, 0);
-    anim.fromValue = @100;
-    
+    anim.repeatCount = 1;
+    // 是否返回
+//    anim.autoreverses = YES;
+    // 设置起始位置，指的是锚点的其实位置，默认锚点为（0.5，0.5）
+    anim.fromValue = @(70);
     anim.toValue = @300;
-    //    anim.removedOnCompletion = NO;
-    //    anim.fillMode = kCAFillModeForwards;
+    // 动画从图层移除，如果想要保持动画后的状态，需要设置为NO
+//    anim.removedOnCompletion = NO;
+    // 图层保持动画后的状态
+    anim.fillMode = kCAFillModeForwards;
     [self.myView.layer addAnimation:anim forKey:nil];
 }
 
@@ -151,22 +135,10 @@
 // 缩放动画
 - (void)scaleAnimate {
     
-    //    CABasicAnimation *anima = [CABasicAnimation animationWithKeyPath:@"bounds"];
-    //    anima.toValue = [NSValue valueWithCGRect:CGRectMake(100, 100, 30, 30)];
-    //    anima.delegate = self;
-    //    anima.removedOnCompletion = NO;
-    //    anima.fillMode = kCAFillModeForwards;
-    //    anima.duration = 2.0;
-    //    [self.myView.layer addAnimation:anima forKey:@"bounds"];
-    //
-    //    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
-    //    anim.duration = 1.5; // 动画持续1.5s
-    
-    // CALayer的宽度从0.5倍变为2倍
-    // CALayer的高度从0.5倍变为1.5倍
     CABasicAnimation *anima = [CABasicAnimation animationWithKeyPath:@"transform"];
-    anima.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.5, 0.5, 1)];
-    anima.toValue  = [NSValue valueWithCATransform3D:CATransform3DMakeScale(2, 1.5, 1)];
+    anima.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1, 1, 1)];
+    anima.toValue  = [NSValue valueWithCATransform3D:CATransform3DMakeScale(2, 1.5, 2)];
+    
     anima.duration = 2;
     
     [_myView.layer addAnimation:anima forKey:nil];
@@ -195,10 +167,10 @@
     animate.keyPath = @"position.y";
     animate.fromValue = @200;
     animate.toValue = @300;
-    // NO,坐标Y从200 到300   YES 坐标y从当前的y+200 到y+300
+    // NO,坐标Y从200 到300   YES 坐标y从当前的y+200 到y+300累加坐标
     animate.additive = NO;
     animate.repeatCount = 2;
-    // 默认为NO 循环动画时，仍然从其实位置进行   YES 从下一次循环开始，每次结束后，讲从当前的y+200 到y+300开始平移
+    // 默认为NO 循环动画时，仍然从起始位置进行   YES 从下一次循环开始，每次结束后，讲从当前的y+200 到y+300开始平移
     animate.cumulative = NO;
     [_myView.layer addAnimation:animate forKey:nil];
 }

@@ -100,50 +100,78 @@
     
 }
 
+#pragma mark - 基本动画
 - (void)UIViewAnimateExample {
     
-    // 直接设置并进行提交动画
+    //设置动画
     [UIView beginAnimations:@"animationID" context:NULL];
-    // 设置代理
+    // 动画代理
     [UIView setAnimationDelegate:self];
-    // 设置时长
-    [UIView setAnimationDuration:3];
-    // 设置动画的变化规律
-    // 设置为NO，无动画效果
-    //    UIViewAnimationCurveEaseInOut,    开始和结尾慢，中间块（默认）
-    //    UIViewAnimationCurveEaseIn,       开始慢，结尾块
-    //    UIViewAnimationCurveEaseOut,      开始块，结尾慢
-    //    UIViewAnimationCurveLinear,       匀速
-
+    // 动画时长
+    [UIView setAnimationDuration:1];
+    // 动画的速度
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     // 是否反向
     [UIView setAnimationRepeatAutoreverses:YES];
-    
+    // 动画的回调代理，可以回调所设置的方法 默认为nil
     [UIView setAnimationDelegate:self];
-    // 开始动画
-    [UIView setAnimationWillStartSelector:@selector(didStartAnimate)];
+    // 开始动画事件回调
+    [UIView setAnimationWillStartSelector:@selector(willStartAnimate)];
+    // 动画停止事件回调
+    [UIView setAnimationDidStopSelector:@selector(didStopAnimate)];
     // 动画重复次数
     [UIView setAnimationRepeatCount:3];
     // 此处默认为NO，设置为YES 感觉没有多大的区别
     [UIView setAnimationBeginsFromCurrentState:YES];
     // 动画效果是否可用
-    [UIView setAnimationsEnabled:NO];
+    [UIView setAnimationsEnabled:YES];
     //切记：下面的三句和上边的两句位置千万不能搞错啦
     CGRect frame = self.myView.frame;
     frame = CGRectMake(200, 300, 100, 100);
     self.myView.frame = frame;
-    
+
+    // 当设置多个transForm时，只有一个有效
+    self.myView.transform = CGAffineTransformMakeScale(0.7, 1.2);
+    self.myView.transform = CGAffineTransformMakeRotation(M_PI / 2);
+    self.myView.alpha = 0.1;
+    // 动画提交
     [UIView commitAnimations];
 }
 
-- (void)didStartAnimate {
-
-
+#pragma mark -自定义动画回调方法
+- (void)willStartAnimate {
+    NSLog(@"开始动画");
+//    self.myView.transform = CGAffineTransformMakeScale(0.7, 1.2);
 }
 
+- (void)didStopAnimate {
+    NSLog(@"动画停止");
+    // 重置位置
+    self.myView.alpha = 1.0;
+    self.myView.transform = CGAffineTransformIdentity;
+}
+
+- (void)transFormAnimate {
+    
+    //设置动画
+    [UIView beginAnimations:@"animationID" context:NULL];
+    // 设置代理
+    [UIView setAnimationDelegate:self];
+    
+    //    self.myView.transform = CGAffineTransformMakeTranslation(0.7, 1.2);
+    // CGAffineTransformEqualToTransform 判断两个转换是否是一致的
+    //    self.myView.transform =CGAffineTransformScale(self.myView.transform, 0.5, 0.5);
+    //    self.myView.layer.transform= CATransform3DMakeScale(0.4, 0.5, 0.5);
+    
+    NSLog(@"%@",NSStringFromCGAffineTransform(self.myView.transform));
+}
+
+
+
+#pragma mark -block动画
 - (void)UIViewBlockAnimateExample {
     
-    // 苹果推荐使用block动画
+    // 苹果推荐使用block动画，使用block动画
     //    UIViewAnimationOptionCurveEaseInOut   //先加速后减速，默认
     //    UIViewAnimationOptionCurveEaseIn      //由慢到快
     //    UIViewAnimationOptionCurveEaseOut     //由快到慢
@@ -156,7 +184,7 @@
     //        self.myView.frame = frame;
     //    }];
     //
-    //    // 2.带有动画的完成效果
+    // 2.带有动画的完成效果
     //    [UIView animateWithDuration:0.3 animations:^{
     //
     //        self.myView.alpha = 0.2;
@@ -185,8 +213,33 @@
     [self animatedView:view4 withIndex:3];
 }
 
+//y轴上移动视图上升250
+- (void)animatedView: (UIView *)view withIndex:(NSInteger)index {
+    
+    // 1.delay 延迟时间
+    // 2、options 动画速度快慢
+//    [UIView animateWithDuration: 0.5 delay:(index * 0.5) options: UIViewAnimationOptionCurveEaseInOut animations: ^{
+//        
+//        CGPoint center = view.center;
+//        center.y -= 100;
+//        view.center = center;
+//    } completion: nil];
+    
+    
+    // 1、dampingRatio：速度衰减比例。取值范围0 ~ 1，值越低震动越强
+    //  2、velocity：初始化速度，值越高则物品的速度越快
+    [UIView animateWithDuration:0.5 delay:(index * 0.05) usingSpringWithDamping:0.3 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        CGPoint center = view.center;
+        center.y -= 100;
+        view.center = center;
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 
-// 过度动画
+// 过渡动画
 - (void)UIViewAnimateTransitonWithView:(UIView *)view {
     
     // 1.transitionWithView
@@ -199,8 +252,8 @@
     //    UIViewAnimationOptionTransitionFlipFromTop    从上翻转 = 6 << 20,
     //    UIViewAnimationOptionTransitionFlipFromBottom  从下翻转= 7 << 20,
     [UIView transitionWithView:view duration:1.5 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
+        
         self.view2.alpha = 0.1;
-
     } completion:^(BOOL finished) {
 
     }];
@@ -219,6 +272,7 @@
 //    } completion:nil];
 }
 
+#pragma mark - 关键帧动画
 - (void)UIViewKeyAnimation {
 
     CGPoint originalCenter = self.planeImage.center;
@@ -260,27 +314,6 @@
 }
 
 
-//y轴上移动视图上升250
-- (void)animatedView: (UIView *)view withIndex:(NSInteger)index
-{
-    //    [UIView animateWithDuration: 0.5 delay:(index * 0.5) options: UIViewAnimationOptionCurveEaseInOut animations: ^{
-    //        CGPoint center = view.center;
-    //        center.y -= 100;
-    //        view.center = center;
-    //    } completion: nil];
-    // dampingRatio：速度衰减比例。取值范围0 ~ 1，值越低震动越强
-    //    velocity：初始化速度，值越高则物品的速度越快
-    [UIView animateWithDuration:0.5 delay:(index * 0.05) usingSpringWithDamping:0.3 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        
-        CGPoint center = view.center;
-        center.y -= 100;
-        view.center = center;
-        
-    } completion:^(BOOL finished) {
-        
-    }];
-
-}
 
 // puper
 

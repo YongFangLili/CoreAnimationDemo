@@ -68,8 +68,6 @@
     exampleVC.index = indexPath.row;
     [self.navigationController pushViewController:exampleVC animated:YES];
     
-    
-
 }
 
 
