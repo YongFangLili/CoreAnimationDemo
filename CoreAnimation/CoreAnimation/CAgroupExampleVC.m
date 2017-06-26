@@ -61,28 +61,42 @@
 - (void)groupAnimate1 {
     
     // 动画1：3秒的大小缩放
-    CABasicAnimation *anim1 = [CABasicAnimation animation];
-    anim1.keyPath = @"transform.scale";
-    anim1.duration = 3.0;
-    anim1.fromValue = @[@1, @1, @1];
-    anim1.toValue = @[@0.8, @0.8, @1];// x,y,z轴上的缩放
+    CABasicAnimation *scaleAnimte = [CABasicAnimation animation];
+    scaleAnimte.keyPath = @"transform.scale";
+    scaleAnimte.duration = 1.0;
+    scaleAnimte.fromValue = @[@1, @1, @1];
+    scaleAnimte.toValue = @[@0.5, @0.5, @0.5];// x,y,z轴上的缩放
     
-    // 在animationGroup里的动画，以下两个属性设置是不起作用的
-    anim1.removedOnCompletion = NO;
+    
+//    anim1.removedOnCompletion = NO;
+//    anim1.fillMode = kCAFillModeForwards;
     // anim1.delegate = self;
     
-    // 动画2：5秒的逐渐透明
-    CABasicAnimation *anim2 = [CABasicAnimation animation];
-    anim2.keyPath = @"opacity";
+    // 动画逐渐透明
+    CABasicAnimation *alphaAnimte = [CABasicAnimation animation];
+    alphaAnimte.keyPath = @"opacity";
+    alphaAnimte.duration = 1.0f;
+    alphaAnimte.toValue = @0.0;
     
-    anim2.duration = 5.0f;
-    anim2.toValue = @0.0;
+    // 动画旋转
+    CABasicAnimation *rotationAnimate = [CABasicAnimation animation];
+    rotationAnimate.duration = 1.0;
+    rotationAnimate.keyPath = @"transform.rotation";
+    rotationAnimate.toValue = @((4 * M_PI));
     
-    // 动画组：10秒的动画组，虽然组内动画在3秒和5秒的时候已经结束了
-    // 但组是持续10秒的，10秒后才结束
+    // 动画移动
+    CABasicAnimation *moveAnimate = [CABasicAnimation animation];
+    moveAnimate.duration = 1.0;
+    moveAnimate.keyPath  = @"transform.translation";
+    moveAnimate.toValue = [NSValue valueWithCGPoint:CGPointMake(300, 300)];
+    
+    
+    // 如果两个动画设置时间一样，并且总时间与 group 时间一样，两组动画会同时进行
     CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-    animGroup.duration = 8.0f;
-    animGroup.animations = @[anim1];
+    animGroup.duration = 3.0f;
+    animGroup.animations = @[scaleAnimte,alphaAnimte,rotationAnimate,moveAnimate];
+//    animGroup.removedOnCompletion = NO;
+//    animGroup.fillMode = kCAFillModeForwards;
     [self.myView.layer addAnimation:animGroup forKey:nil];
 
 }
