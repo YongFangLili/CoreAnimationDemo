@@ -43,14 +43,6 @@
         case 0:
             [self groupAnimate1];
             break;
-//        case 1:
-//            [self scaleAnimate];
-//            break;
-//        case 2:
-//            [self rotateAnimate];
-//            break;
-//        case 3:
-//            [self additiveAnimate];
             
         default:
             break;

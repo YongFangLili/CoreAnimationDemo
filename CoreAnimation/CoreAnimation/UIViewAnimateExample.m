@@ -253,7 +253,7 @@
     //    UIViewAnimationOptionTransitionFlipFromBottom  从下翻转= 7 << 20,
     [UIView transitionWithView:view duration:1.5 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
         
-        self.view2.alpha = 0.1;
+//        self.view2.alpha = 0.1;
     } completion:^(BOOL finished) {
 
     }];

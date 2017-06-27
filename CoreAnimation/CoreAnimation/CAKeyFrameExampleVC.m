@@ -29,10 +29,7 @@
     self.myView.backgroundColor = [UIColor grayColor];
     
     self.myView.layer.bounds = CGRectMake(0, 0, 100, 100);
-//    self.myView.layer.position = CGPointMake(100, 200);
-//    self.myView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.myView];
-    
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 200, 100, 100)];
     self.imageView.image = [UIImage imageNamed:@"timg"];
     self.customerLayer = [CALayer layer];
@@ -42,10 +39,7 @@
     self.customerLayer.position = CGPointMake(0, 0);
     [self.myView.layer addSublayer:self.customerLayer];
     
-    
-    
     [self.view addSubview:self.imageView];
-    // Do any additional setup after loading the view.
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -119,7 +113,8 @@
     NSValue *v2 = [NSValue valueWithCGPoint:(CGPoint){150, 150}];
     NSValue *v3 = [NSValue valueWithCGPoint:(CGPoint){280, 350}];
     anim.values = @[v1, v2, v3];
-    anim.keyTimes = @[@0.0f, @0.5f, @1.0f];// 把@0.2f改成@0.5f，更方便观察
+    // 每一帧所开始的时间
+    anim.keyTimes = @[@0.0f, @0.5f, @1.0f];
     // 不同补间插值分段，使用各自的时间函数
     // v1到v2段时间函数，慢入快出
 //    CAMediaTimingFunction *v1v2 = [CAMediaTimingFunction functionWithControlPoints:0.62f :0.12f :0.93f :0.17f];
