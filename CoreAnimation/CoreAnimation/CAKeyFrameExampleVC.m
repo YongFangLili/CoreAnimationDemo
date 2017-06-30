@@ -58,7 +58,7 @@
             [self caculationModeAnimate];
             break;
         case 4:
-            [self flyAnimate];
+            [self flyAnimation];
             break;
             
         default:
@@ -182,7 +182,24 @@
 
 }
 
-
+- (void)flyAnimation {
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 50, 50, 50)];
+    imageView.image = [UIImage imageNamed:@"plane"];
+    [self.view addSubview:imageView];
+    CGMutablePathRef pathLine = CGPathCreateMutable();
+    CGPathMoveToPoint(pathLine, NULL, 50, 50);
+    CGMutablePathRef arcLine = CGPathCreateMutable();
+    CGPathAddArc(pathLine, NULL, 200, 200, 150, 0, M_PI_2, YES);
+    CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animation];
+    keyAnimation.keyPath = @"position";
+    keyAnimation.fillMode = kCAFillModeForwards;
+    keyAnimation.removedOnCompletion = NO;
+    keyAnimation.path = pathLine;
+    keyAnimation.duration = 3.0;
+    [imageView.layer addAnimation:keyAnimation forKey:Nil];
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

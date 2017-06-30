@@ -87,6 +87,8 @@
     CAAnimationGroup *animGroup = [CAAnimationGroup animation];
     animGroup.duration = 3.0f;
     animGroup.animations = @[scaleAnimte,alphaAnimte,rotationAnimate,moveAnimate];
+    //kCAFillModeForwards 当动画结束后,layer会一直保持着动画最后的状态
+    // kCAFillModeBackwards layer便立即进入动画的初始状态并等待动画开始
 //    animGroup.removedOnCompletion = NO;
 //    animGroup.fillMode = kCAFillModeForwards;
     [self.myView.layer addAnimation:animGroup forKey:nil];
