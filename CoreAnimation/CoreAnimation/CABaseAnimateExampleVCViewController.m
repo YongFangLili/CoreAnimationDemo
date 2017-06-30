@@ -50,8 +50,6 @@
     
     _view2 = [[UIView alloc] initWithFrame:CGRectMake(50, 50, 50, 50)];
     _view2.backgroundColor = [UIColor blueColor];
-//    [self.myView addSubview:_view2];
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -151,9 +149,11 @@
     
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform"];
     anim.duration = 1.5;
+//    anim.repeatCount = 2;
     
     // 绕着(0, 0, 1)这个向量轴顺时针旋转45°
     anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation( M_PI, 0, 0, 1)];
+    anim.repeatDuration = 6.0;
     [_myView.layer addAnimation:anim forKey:nil];
     
     
@@ -170,7 +170,7 @@
     // NO,坐标Y从200 到300   YES 坐标y从当前的y+200 到y+300累加坐标
     animate.additive = NO;
     animate.repeatCount = 2;
-    // 默认为NO 循环动画时，仍然从起始位置进行   YES 从下一次循环开始，每次结束后，讲从当前的y+200 到y+300开始平移
+    // 默认为NO 循环动画时，仍然从起始位置进行   YES 从下一次循环开始，每次结束后，将从当前的y+200 到y+300开始平移
     animate.cumulative = NO;
     [_myView.layer addAnimation:animate forKey:nil];
 }

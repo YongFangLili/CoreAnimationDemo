@@ -24,20 +24,21 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.myView = [[UIView alloc] init];
-    self.myView.frame = CGRectMake(100, 200, 100, 100);
-    self.myView.backgroundColor = [UIColor grayColor];
-    
-    self.myView.layer.bounds = CGRectMake(0, 0, 100, 100);
-    [self.view addSubview:self.myView];
+
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 200, 100, 100)];
     self.imageView.image = [UIImage imageNamed:@"timg"];
-    self.customerLayer = [CALayer layer];
-    self.customerLayer.backgroundColor = [UIColor cyanColor].CGColor;
-    self.customerLayer.bounds = CGRectMake(0, 0, 100, 100);
-    self.customerLayer.anchorPoint = CGPointMake(0, 0);
-    self.customerLayer.position = CGPointMake(0, 0);
-    [self.myView.layer addSublayer:self.customerLayer];
+    
+//    self.myView = [[UIView alloc] init];
+//    self.myView.frame = CGRectMake(100, 200, 100, 100);
+//    self.myView.backgroundColor = [UIColor grayColor];
+//
+//    self.myView.layer.bounds = CGRectMake(0, 0, 100, 100);
+//    [self.view addSubview:self.myView];
+//    self.customerLayer = [CALayer layer];
+//    self.customerLayer.bounds = CGRectMake(0, 0, 100, 100);
+//    self.customerLayer.anchorPoint = CGPointMake(0, 0);
+//    self.customerLayer.position = CGPointMake(0, 0);
+//    [self.myView.layer addSublayer:self.customerLayer];
     
     [self.view addSubview:self.imageView];
 }
@@ -50,7 +51,7 @@
             break;
         case 1:
             [self timingFunctionsAnimate];
-//            break;
+            break;
         case 2:
             [self rotationAnimete];
             break;
@@ -99,13 +100,14 @@
     NSValue *v3 = [NSValue valueWithCGPoint:(CGPoint){280, 350}];
     anim.values = @[v1, v2, v3];
     anim.keyTimes = @[@0.0f, @0.5f, @1.0f];
-    [self.customerLayer addAnimation:anim forKey:nil];
+    [self.imageView.layer addAnimation:anim forKey:nil];
     
 }
 
 // timingFunctions
 - (void)timingFunctionsAnimate {
 
+    self.myView.hidden = YES;
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
     anim.keyPath = @"position";// 动画类型为位置变化动画
     anim.duration = 3.0f;
@@ -115,13 +117,14 @@
     anim.values = @[v1, v2, v3];
     // 每一帧所开始的时间
     anim.keyTimes = @[@0.0f, @0.5f, @1.0f];
+//    anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     // 不同补间插值分段，使用各自的时间函数
     // v1到v2段时间函数，慢入快出
-//    CAMediaTimingFunction *v1v2 = [CAMediaTimingFunction functionWithControlPoints:0.62f :0.12f :0.93f :0.17f];
-//    // v2到v3段时间函数，快入慢出
-//    CAMediaTimingFunction *v2v3 = [CAMediaTimingFunction functionWithControlPoints:0.81f :0.12f :0.25f :0.92f];
-//    anim.timingFunctions = @[v1v2, v2v3];// 元素个数应当为keyTimes个数-1，默认为线性
-    [self.customerLayer addAnimation:anim forKey:nil];
+    CAMediaTimingFunction *v1v2 = [CAMediaTimingFunction functionWithControlPoints:0.62f :0.12f :0.93f :0.17f];
+    // v2到v3段时间函数，快入慢出
+    CAMediaTimingFunction *v2v3 = [CAMediaTimingFunction functionWithControlPoints:0.81f :0.12f :0.25f :0.92f];
+    anim.timingFunctions = @[v1v2, v2v3];// 元素个数应当为keyTimes个数-1，默认为线性
+    [self.imageView.layer addAnimation:anim forKey:nil];
 
 }
 
@@ -173,7 +176,6 @@
 //    kCAAnimationPaced    使得动画均匀进行,而不是按keyTimes设置的或者按关键帧平分时间,此时keyTimes和timingFunctions无效;
 //    kCAAnimationCubic  对关键帧为座标点的关键帧进行圆滑曲线相连后插值计算,主要目的是使得运行的轨迹变得圆滑;
 //    kCAAnimationCubicPaced 看这个名字就知道和kCAAnimationCubic有一定联系,其实就是在kCAAnimationCubic的基础上使得动画运行变得均匀,就是系统时间内运动的距离相同,此时keyTimes以及timingFunctions也是无效的
-//    kCAAnimationPaced 使得动画均匀进行,而不是按keyTimes设置的或者按关键帧平分时间,此时keyTimes和timingFunctions无效;
     yAnim.calculationMode = kCAAnimationPaced;
     yAnim.removedOnCompletion = YES;
 
@@ -184,13 +186,14 @@
 
 - (void)flyAnimation {
     
+    self.imageView.hidden = YES;
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 50, 50, 50)];
     imageView.image = [UIImage imageNamed:@"plane"];
+
     [self.view addSubview:imageView];
     CGMutablePathRef pathLine = CGPathCreateMutable();
-    CGPathMoveToPoint(pathLine, NULL, 50, 50);
-    CGMutablePathRef arcLine = CGPathCreateMutable();
-    CGPathAddArc(pathLine, NULL, 200, 200, 150, 0, M_PI_2, YES);
+    CGPathMoveToPoint(pathLine, NULL, 50, 100);
+    CGPathAddArc(pathLine, NULL, 200, 300, 150, 0, M_PI_2, YES);
     CAKeyframeAnimation *keyAnimation = [CAKeyframeAnimation animation];
     keyAnimation.keyPath = @"position";
     keyAnimation.fillMode = kCAFillModeForwards;
