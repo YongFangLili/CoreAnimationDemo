@@ -112,13 +112,13 @@
     // 控制动画的速度
     anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];//[CAMediaTimingFunction functionWithControlPoints:46 :1 :97 :96];//;
     //
-    // timeOffet  先从2s以后播放后4秒的动画，之后会回到起点，播放2.0s的动画
+    // timeOffet  先从2s以后播放后1秒的动画，之后会回到起点，播放2.0s的动画
     anim.timeOffset = 2.0;
     // 设置0与1都只执行1次， 动画执行的次数
     anim.repeatCount = 1;
     // 是否返回
 //    anim.autoreverses = YES;
-    // 设置起始位置，指的是锚点的其实位置，默认锚点为（0.5，0.5）
+    // 设置起始位置，指的是锚点的起始位置，默认锚点为（0.5，0.5）
     anim.fromValue = @(70);
     anim.toValue = @300;
     // 动画从图层移除，如果想要保持动画后的状态，需要设置为NO
@@ -152,7 +152,7 @@
 //    anim.repeatCount = 2;
     
     // 绕着(0, 0, 1)这个向量轴顺时针旋转45°
-    anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation( M_PI, 0, 0, 1)];
+    anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation( M_PI, 1, 0, 0)];
     anim.repeatDuration = 6.0;
     [_myView.layer addAnimation:anim forKey:nil];
     
@@ -171,7 +171,7 @@
     animate.additive = NO;
     animate.repeatCount = 2;
     // 默认为NO 循环动画时，仍然从起始位置进行   YES 从下一次循环开始，每次结束后，将从当前的y+200 到y+300开始平移
-    animate.cumulative = NO;
+    animate.cumulative = YES;
     [_myView.layer addAnimation:animate forKey:nil];
 }
 

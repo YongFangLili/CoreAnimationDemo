@@ -133,23 +133,23 @@
     CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
     anim.keyPath = @"position";// 动画类型为位置变化动画
     anim.duration = 3.0f;
-//    NSValue *v1 = [NSValue valueWithCGPoint:(CGPoint){20, 350}];
-//    NSValue *v2 = [NSValue valueWithCGPoint:(CGPoint){150, 150}];
-//    NSValue *v3 = [NSValue valueWithCGPoint:(CGPoint){280, 350}];
-//    anim.values = @[v1, v2, v3];
-//    anim.keyTimes = @[@0.0f, @0.5f, @1.0f];// 把@0.2f改成@0.5f，更方便观察
+    NSValue *v1 = [NSValue valueWithCGPoint:(CGPoint){20, 350}];
+    NSValue *v2 = [NSValue valueWithCGPoint:(CGPoint){150, 150}];
+    NSValue *v3 = [NSValue valueWithCGPoint:(CGPoint){280, 350}];
+    anim.values = @[v1, v2, v3];
+    anim.keyTimes = @[@0.0f, @0.5f, @1.0f];// 把@0.2f改成@0.5f，更方便观察
 //    CAMediaTimingFunction *v1v2 = [CAMediaTimingFunction functionWithControlPoints:0.62f :0.12f :0.93f :0.17f];
 //    // v2到v3段时间函数，快入慢出
 //    CAMediaTimingFunction *v2v3 = [CAMediaTimingFunction functionWithControlPoints:0.81f :0.12f :0.25f :0.92f];
 //    anim.timingFunctions = @[v1v2, v2v3];// 元素个数应当为keyTimes个数-1，默认为线性
     
-    // 设置运动轨迹
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, 20, 350);
-    CGPathAddLineToPoint(path, NULL, 150, 150);
-    CGPathAddLineToPoint(path, NULL, 280, 350);
-    anim.path = path;// path赋值时自动copy
-    CGPathRelease(path);// 手动释放内存
+//    // 设置运动轨迹
+//    CGMutablePathRef path = CGPathCreateMutable();
+//    CGPathMoveToPoint(path, NULL, 20, 350);
+//    CGPathAddLineToPoint(path, NULL, 150, 150);
+//    CGPathAddLineToPoint(path, NULL, 280, 350);
+//    anim.path = path;// path赋值时自动copy
+//    CGPathRelease(path);// 手动释放内存
     // 注意，当且仅当动画设置了path，旋转才有效果
     // kCAAnimationRotateAuto 沿着切线方向旋转
     anim.rotationMode = kCAAnimationRotateAutoReverse;
@@ -176,7 +176,7 @@
 //    kCAAnimationPaced    使得动画均匀进行,而不是按keyTimes设置的或者按关键帧平分时间,此时keyTimes和timingFunctions无效;
 //    kCAAnimationCubic  对关键帧为座标点的关键帧进行圆滑曲线相连后插值计算,主要目的是使得运行的轨迹变得圆滑;
 //    kCAAnimationCubicPaced 看这个名字就知道和kCAAnimationCubic有一定联系,其实就是在kCAAnimationCubic的基础上使得动画运行变得均匀,就是系统时间内运动的距离相同,此时keyTimes以及timingFunctions也是无效的
-    yAnim.calculationMode = kCAAnimationPaced;
+    yAnim.calculationMode = kCAAnimationDiscrete;
     yAnim.removedOnCompletion = YES;
 
     [self.imageView.layer addAnimation:yAnim forKey:nil];

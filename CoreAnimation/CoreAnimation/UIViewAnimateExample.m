@@ -132,8 +132,9 @@
     self.myView.frame = frame;
 
     // 当设置多个transForm时，只有一个有效
-    self.myView.transform = CGAffineTransformMakeScale(0.7, 1.2);
     self.myView.transform = CGAffineTransformMakeRotation(M_PI / 2);
+    self.myView.transform = CGAffineTransformMakeScale(0.7, 1.2);
+    self.myView.transform = CGAffineTransformMake(1, 23, 1, 23, 9, 10);
     self.myView.alpha = 0.1;
     // 动画提交
     [UIView commitAnimations];
@@ -229,7 +230,7 @@
     
     // 1、dampingRatio：速度衰减比例。取值范围0 ~ 1，值越低震动越强
     //  2、velocity：初始化速度，值越高则物品的速度越快
-    [UIView animateWithDuration:0.5 delay:(index * 0.05) usingSpringWithDamping:0.3 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.5 delay:(index * 0.05) usingSpringWithDamping:0.3 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
         CGPoint center = view.center;
         center.y -= 100;
@@ -252,7 +253,7 @@
     //    UIViewAnimationOptionTransitionCrossDissolve  转场交叉消失 = 5 << 20,
     //    UIViewAnimationOptionTransitionFlipFromTop    从上翻转 = 6 << 20,
     //    UIViewAnimationOptionTransitionFlipFromBottom  从下翻转= 7 << 20,
-    [UIView transitionWithView:view duration:1.5 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{
+    [UIView transitionWithView:view duration:1.5 options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionTransitionCurlUp animations:^{
         
 //        self.view2.alpha = 0.1;
     } completion:^(BOOL finished) {

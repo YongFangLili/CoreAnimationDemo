@@ -52,7 +52,7 @@
     // 动画1：3秒的大小缩放
     CABasicAnimation *scaleAnimte = [CABasicAnimation animation];
     scaleAnimte.keyPath = @"transform.scale";
-    scaleAnimte.duration = 1.0;
+    scaleAnimte.duration = 3.0;
     scaleAnimte.removedOnCompletion = NO;
     scaleAnimte.fillMode = kCAFillModeForwards;
 //    scaleAnimte.fromValue = @[@1, @1, @1];
@@ -60,16 +60,16 @@
 
     // 动画逐渐透明
     CABasicAnimation *alphaAnimte = [CABasicAnimation animation];
-    alphaAnimte.beginTime = 1;
+//    alphaAnimte.beginTime = 1;
     alphaAnimte.keyPath = @"opacity";
-    alphaAnimte.duration = 1.0f;
+    alphaAnimte.duration = 3.0f;
     alphaAnimte.toValue = @0.0;
     
     // 动画旋转
     CABasicAnimation *rotationAnimate = [CABasicAnimation animation];
     
-    rotationAnimate.beginTime =2;
-    rotationAnimate.duration = 2.0;
+//    rotationAnimate.beginTime =2;
+    rotationAnimate.duration = 3.0;
     rotationAnimate.keyPath = @"transform.rotation";
     rotationAnimate.toValue = @((4 * M_PI));
     
@@ -81,8 +81,8 @@
     
     // position的改变
     CAKeyframeAnimation *keyAnimation= [CAKeyframeAnimation animation];
-    keyAnimation.beginTime = 3;
-    keyAnimation.duration = 1.0;
+//    keyAnimation.beginTime = 3;
+    keyAnimation.duration = 3.0;
 
     keyAnimation.keyPath = @"position";
     
@@ -97,7 +97,7 @@
     
     // 如果两个动画设置时间一样，并且总时间与 group 时间一样，两组动画会同时进行
     CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-    animGroup.duration = 4.0f;
+    animGroup.duration = 3.0f;
     animGroup.animations = @[scaleAnimte,rotationAnimate,alphaAnimte,keyAnimation];
     
     //kCAFillModeForwards 当动画结束后,layer会一直保持着动画最后的状态
