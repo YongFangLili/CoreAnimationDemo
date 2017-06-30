@@ -108,12 +108,12 @@
     // 开始时间，可以延时1s才进行动画
     anim.beginTime = CACurrentMediaTime()  + 1.0;
     // 动画持续时间
-    anim.duration = 6;
+    anim.duration = 3;
     // 控制动画的速度
     anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];//[CAMediaTimingFunction functionWithControlPoints:46 :1 :97 :96];//;
     //
     // timeOffet  先从2s以后播放后4秒的动画，之后会回到起点，播放2.0s的动画
-//    anim.timeOffset = 2.0;
+    anim.timeOffset = 2.0;
     // 设置0与1都只执行1次， 动画执行的次数
     anim.repeatCount = 1;
     // 是否返回

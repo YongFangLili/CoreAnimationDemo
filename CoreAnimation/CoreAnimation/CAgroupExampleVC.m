@@ -22,11 +22,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.myView = [[UIView alloc] init];
-    self.myView.frame = CGRectMake(100, 200, 100, 100);
+    self.myView.frame = CGRectMake(20, 300, 100, 100);
     self.myView.backgroundColor = [UIColor grayColor];
-    
-    self.myView.layer.bounds = CGRectMake(0, 0, 100, 100);
-    self.myView.layer.position = CGPointMake(100, 200);
     self.myView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.myView];
     
@@ -56,37 +53,53 @@
     CABasicAnimation *scaleAnimte = [CABasicAnimation animation];
     scaleAnimte.keyPath = @"transform.scale";
     scaleAnimte.duration = 1.0;
-    scaleAnimte.fromValue = @[@1, @1, @1];
+    scaleAnimte.removedOnCompletion = NO;
+    scaleAnimte.fillMode = kCAFillModeForwards;
+//    scaleAnimte.fromValue = @[@1, @1, @1];
     scaleAnimte.toValue = @[@0.5, @0.5, @0.5];// x,y,z轴上的缩放
-    
-    
-//    anim1.removedOnCompletion = NO;
-//    anim1.fillMode = kCAFillModeForwards;
-    // anim1.delegate = self;
-    
+
     // 动画逐渐透明
     CABasicAnimation *alphaAnimte = [CABasicAnimation animation];
+    alphaAnimte.beginTime = 1;
     alphaAnimte.keyPath = @"opacity";
     alphaAnimte.duration = 1.0f;
     alphaAnimte.toValue = @0.0;
     
     // 动画旋转
     CABasicAnimation *rotationAnimate = [CABasicAnimation animation];
-    rotationAnimate.duration = 1.0;
+    
+    rotationAnimate.beginTime =2;
+    rotationAnimate.duration = 2.0;
     rotationAnimate.keyPath = @"transform.rotation";
     rotationAnimate.toValue = @((4 * M_PI));
     
     // 动画移动
-    CABasicAnimation *moveAnimate = [CABasicAnimation animation];
-    moveAnimate.duration = 1.0;
-    moveAnimate.keyPath  = @"transform.translation";
-    moveAnimate.toValue = [NSValue valueWithCGPoint:CGPointMake(300, 300)];
+//    CABasicAnimation *moveAnimate = [CABasicAnimation animation];
+//    moveAnimate.duration = 1.0;
+//    moveAnimate.keyPath  = @"transform.translation";
+//    moveAnimate.toValue = [NSValue valueWithCGPoint:CGPointMake(300, 300)];
+    
+    // position的改变
+    CAKeyframeAnimation *keyAnimation= [CAKeyframeAnimation animation];
+    keyAnimation.beginTime = 3;
+    keyAnimation.duration = 1.0;
+
+    keyAnimation.keyPath = @"position";
+    
+    NSValue *v3 = [NSValue valueWithCGPoint:(CGPoint){20, 300}];
+    NSValue *v1 = [NSValue valueWithCGPoint:(CGPoint){150, 100}];
+    NSValue *v2 = [NSValue valueWithCGPoint:(CGPoint){300, 500}];
+    keyAnimation.calculationMode = kCAAnimationCubic;
+    keyAnimation.keyTimes = @[@(0),@(0.5),@(1.0)];
+    keyAnimation.values = @[v3,v1,v2];
+    
     
     
     // 如果两个动画设置时间一样，并且总时间与 group 时间一样，两组动画会同时进行
     CAAnimationGroup *animGroup = [CAAnimationGroup animation];
-    animGroup.duration = 3.0f;
-    animGroup.animations = @[scaleAnimte,alphaAnimte,rotationAnimate,moveAnimate];
+    animGroup.duration = 4.0f;
+    animGroup.animations = @[scaleAnimte,rotationAnimate,alphaAnimte,keyAnimation];
+    
     //kCAFillModeForwards 当动画结束后,layer会一直保持着动画最后的状态
     // kCAFillModeBackwards layer便立即进入动画的初始状态并等待动画开始
 //    animGroup.removedOnCompletion = NO;
